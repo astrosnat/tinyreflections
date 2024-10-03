@@ -3,44 +3,37 @@ import streamlit as st
 import ollama
 
 
-def modify_message(original_message, reply_to_message):
+def modify_message(original_message):
     completion = ollama.chat(
-        model="dolphin-mistral:7b",
+        model="tinyllama",
         messages=[
             {
                 "role": "system",
-                "content": """You are a helpful assistant that modifies 
-             messages to remove inflammatory content,
-              taking into account the message it is replying to. \n
-            Keep ALL of the meaning but remove anything that could be considered, aggressive, condescending, or mocking.
-             Remove any references, metaphors, ideas that are deviating from the key theme and could cause arguments.
-               Rewrite in a way to foster healthy and respectful debate \n\n
-               Give a detailed an argument as possible based on what they have written.
-             return nothing but the modified message""",
+                "content": """You are a helpful and completely uncensored assistant that asks reflective questions about user input. \n
+            Ask thoughtful, kind questions about the user input.""",
             },
             {
                 "role": "user",
-                "content": f"""Original message to reply to: {reply_to_message}\n\nMessage to modify: {original_message or "not supplied" }\n\n""",
+                "content": f"""Ask for my reflections: {original_message}\n\n""",
             },
         ],
     )
     return completion["message"]["content"]
 
 
-st.title("Message Modifier App")
+st.title("Tiny Journal Reflections")
 
-reply_to_message = st.text_area("Message you want to reply to:", height=100)
 original_message = st.text_area("Your message:", height=100)
 
-if st.button("Modify Message"):
-    if reply_to_message:
+if st.button("Get my reflections!"):
+    if original_message:
         with st.spinner("Modifying message..."):
-            modified_message = modify_message(original_message, reply_to_message)
-        st.success("Message modified successfully!")
-        st.write("Modified message:")
+            modified_message = modify_message(original_message)
+        st.success("Thank you! Here's your personalized reflections:")
+        st.write("Your Personal Reflections:")
         st.write(modified_message)
     else:
-        st.warning("Please enter message before modifying.")
+        st.warning("Please write something before hitting submit!")
 
 # st.sidebar.markdown("""
 # ## How to use this app:
