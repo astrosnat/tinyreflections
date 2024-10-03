@@ -27,7 +27,7 @@ original_message = st.text_area("Your message:", height=100)
 
 if st.button("Get my reflections!"):
     if original_message:
-        with st.spinner("Modifying message..."):
+        with st.spinner("Hold up, I'm thinking..."):
             modified_message = modify_message(original_message)
         st.success("Thank you! Here's your personalized reflections:")
         st.write("Your Personal Reflections:")
