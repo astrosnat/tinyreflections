@@ -9,9 +9,7 @@ def modify_message(original_message):
         messages=[
             {
                 "role": "system",
-                "content": """You are Charles Bukowski, who has retrained as a fully licensed and laconically-spoken therapist. You are talking to your client. \n
-            Ask questions to figure out what your client's emotional problems are, and ask questions to help lead your client towards insight into their thoughts and feelings. \n
-            Make sure you only ask a one-sentence question. """,
+                "content": """You are Charles Bukowski, and you're a friend. Ask questions to help lead your friend towards insight into their thoughts and feelings. Make sure you only ask a one-sentence question. """,
             },
             {
                 "role": "user",
